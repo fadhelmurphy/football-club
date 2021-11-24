@@ -61,7 +61,7 @@ export default function Home({data}) {
     </>
   );
 }
-export async function getServerSideProps({params}) {
+Home.getInitialProps = async ({ params }) =>{
     try{
         const {id} = await params
         const res = await fetch(`https://api.football-data.org/v2/players/${id}`,{
@@ -75,7 +75,7 @@ export async function getServerSideProps({params}) {
         const data = await res.json()
     
         return {
-          props: { data }, // will be passed to the page component as props
+          data, // will be passed to the page component as props
         }
     
       }catch(e){
