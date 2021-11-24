@@ -1,16 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Container, Nav, Navbar, NavDropdown, Col, Row } from "react-bootstrap";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import { List, Card, Input, Pagination } from "antd";
 import { useState } from "react";
-import Layout from "../layout";
+import Layout from "../../layout/";
 import Link from "next/link";
 
-export default function Home({ areas }) {
+export default function Home({ teams }) {
   const [state, setstate] = useState({
     filtered: null,
-    thedata: areas,
+    thedata: teams,
     minValue: 0,
     maxValue: 8
   });
@@ -48,12 +48,20 @@ export default function Home({ areas }) {
       </Head>
       <Layout
         title={
-          <>
-            Welcome to <br />{" "}
-            <span style={{ color: "#59e1f7" }}>Bola Ngabs</span>
-          </>
+          thedata.length > 0 ? (
+            <>
+              <span style={{ color: "#59e1f7" }}>{thedata[0].area.name}</span>{" "}
+              Region
+            </>
+          ) : (
+            "Data Kosong"
+          )
         }
-        desc="Select your team by country below"
+        desc={
+          thedata.length > 0
+            ? "Select your team"
+            : "Mohon maaf detail data yang anda cari tidak ada"
+        }
       >
         <Input
           size="large"
@@ -69,13 +77,24 @@ export default function Home({ areas }) {
               .map((val, i) => (
                 <>
                   <Col className="mb-3 m-md-0 rounded-lg">
-                    <Link href={"/teams/" + val.id}>
+                    <Link href={"/club/" + val.id}>
                       <Card
                         className="border border-white c-shadow-lg"
                         // title={val.name}
                         // extra={<a href="#">More</a>}
                       >
-                        <h4>{val.name}</h4>
+                        <Row>
+                          <Col xs="12" md="4" className="align-self-center">
+                            <img style={{
+                              display:'block',
+                              margin:"0 auto",
+                              width:"100%"
+                            }} src={val.crestUrl} />
+                          </Col>
+                          <Col xs="12" md="8" className="align-self-center">
+                            <h4>{val.name}</h4>
+                          </Col>
+                        </Row>
                       </Card>
                     </Link>
                   </Col>
@@ -95,16 +114,19 @@ export default function Home({ areas }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps({ params }) {
   try {
-    const res = await fetch(`https://api.football-data.org/v2/areas/`,{
-          
-      method: 'GET', 
-      headers: new Headers({
-        'X-Auth-Token': 'fd956ab7a1694826b8987aec5974ff2d', 
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }),
-           });
+    const { id } = await params;
+    const res = await fetch(
+      `https://api.football-data.org/v2/teams?areas=${id}`,
+      {
+        method: "GET",
+        headers: new Headers({
+          "X-Auth-Token": "fd956ab7a1694826b8987aec5974ff2d",
+          "Content-Type": "application/x-www-form-urlencoded"
+        })
+      }
+    );
     const data = await res.json();
 
     return {

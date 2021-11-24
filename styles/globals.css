@@ -7,10 +7,25 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #43588f;
 }
 
 * {
   box-sizing: border-box;
+}
+.c-shadow-lg{
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.ant-card:hover {
+  cursor: pointer;
+  background: rgb(191, 219, 254);
+  box-shadow: none;
+  border: 1px solid #3b82f6 !important;
+}
+.ant-card:hover h4 {
+  color: #3b82f6;
 }
