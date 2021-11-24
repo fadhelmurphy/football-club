@@ -115,7 +115,7 @@ export default function Home({ teams }) {
 
 export async function getStaticPaths() {
   const paths = []
-  for(var i=2071;i<2073;i++){
+  for(var i=2000;i<2272;i++){
     paths.push(
       { 
         params: 
@@ -130,7 +130,7 @@ export async function getStaticPaths() {
     paths,
     // Enable statically generating additional pages
     // For example: `/posts/3`
-    fallback: false,
+    fallback: true,
   }
 }
 
