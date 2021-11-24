@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Container, Nav, Navbar, NavDropdown, Col, Row } from "react-bootstrap";
 import styles from "../../styles/Home.module.css";
 import { List, Card, Input, Pagination } from "antd";
