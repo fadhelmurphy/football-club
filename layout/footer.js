@@ -1,5 +1,6 @@
 
 import styles from "../styles/Home.module.css"
+import Image from "next/image";
 export default function Footer(){
     return(
         <>
@@ -12,7 +13,7 @@ export default function Footer(){
             Fadhel Ijlal Falah
           </a>. Powered by
             <span className={styles.logo}>
-              <img
+              <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
                 width={72}
