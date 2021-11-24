@@ -120,7 +120,7 @@ export async function getStaticPaths() {
       { 
         params: 
         { 
-          id: i 
+          id: i.toString() 
         } 
       })
   }
