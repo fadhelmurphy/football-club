@@ -113,7 +113,28 @@ export default function Home({ teams }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticPaths() {
+  const paths = []
+  for(var i=2071;i<2073;i++){
+    paths.push(
+      { 
+        params: 
+        { 
+          id: i 
+        } 
+      })
+  }
+  console.log(paths)
+  return {
+    // Only `/posts/1` and `/posts/2` are generated at build time
+    paths,
+    // Enable statically generating additional pages
+    // For example: `/posts/3`
+    fallback: false,
+  }
+}
+
+export async function getStaticProps({ params }) {
   try {
     const { id } = await params;
     const res = await fetch(
@@ -129,7 +150,10 @@ export async function getServerSideProps({ params }) {
     const data = await res.json();
 
     return {
-      props: { ...data } // will be passed to the page component as props
+      props: { ...data }, // will be passed to the page component as props
+      // Re-generate the post at most once per second
+      // if a request comes in
+      revalidate: 1,
     };
   } catch (e) {
     return {
