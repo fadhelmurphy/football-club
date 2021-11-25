@@ -116,11 +116,12 @@ export default function Home({ teams }) {
 export async function getStaticPaths() {
   const paths = []
   for(var i=2000;i<2272;i++){
+    var num = i
     paths.push(
       { 
         params: 
         { 
-          id: i.toString() 
+          id: num.toString() 
         } 
       })
   }
