@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Home({ teams }) {
   const [state, setstate] = useState({
     filtered: null,
-    thedata: teams,
+    thedata: teams??[],
     minValue: 0,
     maxValue: 8
   });
@@ -149,18 +149,18 @@ export async function getServerSideProps({ params }) {
     );
     const data = await res.json();
 
+
     return {
       props: { ...data }, // will be passed to the page component as props
-      // Re-generate the post at most once per second
-      // if a request comes in
-      revalidate: 1,
-    };
-  } catch (e) {
+    }
+
+  }catch(e){
+
     return {
       redirect: {
-        destination: "/404",
-        permanent: false
-      }
-    };
+        destination: '/404',
+        permanent: false,
+      },
+    }
   }
 }

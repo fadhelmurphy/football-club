@@ -10,7 +10,7 @@ export default function Home(props) {
     const{squad} = props
   const [state, setstate] = useState({
     filtered: null,
-    thedata: squad,
+    thedata: squad??[],
     minValue: 0,
     maxValue: 8
   });
