@@ -113,29 +113,28 @@ export default function Home({ teams }) {
   );
 }
 
-export async function getStaticPaths() {
-  const paths = []
-  for(var i=2000;i<2272;i++){
-    var num = i
-    paths.push(
-      { 
-        params: 
-        { 
-          id: num.toString() 
-        } 
-      })
-  }
-  console.log(paths)
-  return {
-    // Only `/posts/1` and `/posts/2` are generated at build time
-    paths,
-    // Enable statically generating additional pages
-    // For example: `/posts/3`
-    fallback: true,
-  }
-}
+// export async function getStaticPaths() {
+//   const paths = []
+//   for(var i=2000;i<2272;i++){
+//     paths.push(
+//       { 
+//         params: 
+//         { 
+//           id: i.toString() 
+//         } 
+//       })
+//   }
+//   console.log(paths)
+//   return {
+//     // Only `/posts/1` and `/posts/2` are generated at build time
+//     paths,
+//     // Enable statically generating additional pages
+//     // For example: `/posts/3`
+//     fallback: true,
+//   }
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   try {
     const { id } = await params;
     const res = await fetch(
